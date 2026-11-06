@@ -1,5 +1,4 @@
 /node_modules
-/public/build
 /storage/*.key
 /storage/framework/views/*
 !/storage/framework/views/.gitkeep
