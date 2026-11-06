@@ -1,11 +1,17 @@
 import './bootstrap';
 
-// Mobile sidebar toggle
+// Mobile sidebar toggle & close handlers
 document.addEventListener('DOMContentLoaded', function() {
     const sidebarToggle = document.getElementById('sidebarToggle');
     const sidebar = document.getElementById('sidebar');
     const sidebarOverlay = document.getElementById('sidebarOverlay');
+    const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
     
+    function closeSidebar() {
+        sidebar?.classList.add('-translate-x-full');
+        sidebarOverlay?.classList.add('hidden');
+    }
+
     if (sidebarToggle && sidebar) {
         sidebarToggle.addEventListener('click', () => {
             sidebar.classList.toggle('-translate-x-full');
@@ -14,68 +20,37 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     if (sidebarOverlay) {
-        sidebarOverlay.addEventListener('click', () => {
-            sidebar?.classList.add('-translate-x-full');
-            sidebarOverlay.classList.add('hidden');
-        });
+        sidebarOverlay.addEventListener('click', closeSidebar);
     }
 
-    // Service card selection
-    const serviceCards = document.querySelectorAll('[data-service]');
-    serviceCards.forEach(card => {
-        card.addEventListener('click', () => {
-            serviceCards.forEach(c => c.classList.remove('selected'));
-            card.classList.add('selected');
-            const input = document.getElementById('service_type');
-            if (input) input.value = card.dataset.service;
-        });
-    });
-
-    // Payment option selection
-    const paymentOptions = document.querySelectorAll('[data-payment]');
-    paymentOptions.forEach(opt => {
-        opt.addEventListener('click', () => {
-            paymentOptions.forEach(p => p.classList.remove('selected'));
-            opt.classList.add('selected');
-            const input = document.getElementById('payment_method');
-            if (input) input.value = opt.dataset.payment;
-        });
-    });
-
-    // Pickup toggle
-    const pickupYes = document.getElementById('pickup_yes');
-    const pickupNo = document.getElementById('pickup_no');
-    const addressSection = document.getElementById('address_section');
-
-    if (pickupYes && pickupNo && addressSection) {
-        pickupYes.addEventListener('change', () => {
-            if (pickupYes.checked) {
-                addressSection.classList.remove('hidden');
-                addressSection.classList.add('animate-slide-up');
-            }
-        });
-        pickupNo.addEventListener('change', () => {
-            if (pickupNo.checked) {
-                addressSection.classList.add('hidden');
-            }
-        });
+    if (sidebarCloseBtn) {
+        sidebarCloseBtn.addEventListener('click', closeSidebar);
     }
 
     // Auto dismiss alerts
     setTimeout(() => {
         const alerts = document.querySelectorAll('.auto-dismiss');
         alerts.forEach(alert => {
-            alert.style.transition = 'opacity 0.5s ease';
+            alert.style.transition = 'opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s ease';
             alert.style.opacity = '0';
+            alert.style.transform = 'translateY(-8px)';
             setTimeout(() => alert.remove(), 500);
         });
-    }, 4000);
+    }, 4500);
 });
 
-// Chart helper for admin income
+// Modern Chart helper for admin
 window.initChart = function(canvasId, labels, data) {
     const canvas = document.getElementById(canvasId);
     if (!canvas || typeof Chart === 'undefined') return;
+    
+    const ctx = canvas.getContext('2d');
+    let gradient = null;
+    if (ctx) {
+        gradient = ctx.createLinearGradient(0, 0, 0, 260);
+        gradient.addColorStop(0, 'rgba(37, 99, 235, 0.35)');
+        gradient.addColorStop(1, 'rgba(37, 99, 235, 0.0)');
+    }
     
     new Chart(canvas, {
         type: 'line',
@@ -85,37 +60,58 @@ window.initChart = function(canvasId, labels, data) {
                 label: 'Pemasukan (Rp)',
                 data: data,
                 borderColor: '#2563eb',
-                backgroundColor: 'rgba(37, 99, 235, 0.1)',
-                borderWidth: 3,
+                backgroundColor: gradient || 'rgba(37, 99, 235, 0.1)',
+                borderWidth: 2.5,
                 fill: true,
-                tension: 0.4,
+                tension: 0.38,
                 pointBackgroundColor: '#2563eb',
-                pointBorderColor: '#fff',
+                pointBorderColor: '#ffffff',
                 pointBorderWidth: 2,
-                pointRadius: 6,
+                pointRadius: 4.5,
+                pointHoverRadius: 6.5,
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            interaction: {
+                intersect: false,
+                mode: 'index',
+            },
             plugins: {
                 legend: { display: false },
                 tooltip: {
+                    backgroundColor: '#0f172a',
+                    titleColor: '#94a3b8',
+                    bodyColor: '#ffffff',
+                    padding: 12,
+                    cornerRadius: 10,
+                    bodyFont: { weight: 'bold', family: 'Plus Jakarta Sans' },
                     callbacks: {
-                        label: (ctx) => 'Rp ' + ctx.raw.toLocaleString('id-ID')
+                        label: (ctx) => ' Rp ' + Number(ctx.raw || 0).toLocaleString('id-ID')
                     }
                 }
             },
             scales: {
                 y: {
                     beginAtZero: true,
-                    grid: { color: 'rgba(0,0,0,0.05)' },
+                    grid: { color: 'rgba(226, 232, 240, 0.6)' },
                     ticks: {
-                        callback: (val) => 'Rp ' + val.toLocaleString('id-ID')
+                        color: '#64748b',
+                        font: { size: 11 },
+                        callback: (val) => {
+                            if (val >= 1000000) return (val / 1000000) + ' Jt';
+                            if (val >= 1000) return (val / 1000) + ' Rb';
+                            return val;
+                        }
                     }
                 },
                 x: {
-                    grid: { display: false }
+                    grid: { display: false },
+                    ticks: {
+                        color: '#64748b',
+                        font: { size: 11 }
+                    }
                 }
             }
         }

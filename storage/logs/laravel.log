@@ -1074,3 +1074,103 @@
 #68 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('/Users/ray/Docu...')
 #69 {main}
 "} 
+[2026-11-06 10:59:54] local.ERROR: Uncaught ErrorException: Undefined variable $errors in /Users/ray/Documents/Project/dr-sepatu/storage/framework/views/36038d84a52e8ec5651538ee220d0c84.php:24
+Stack trace:
+#0 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(258): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'Undefined varia...', '/Users/ray/Docu...', 24)
+#1 /Users/ray/Documents/Project/dr-sepatu/storage/framework/views/36038d84a52e8ec5651538ee220d0c84.php(24): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}(2, 'Undefined varia...', '/Users/ray/Docu...', 24)
+#2 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(123): require('/Users/ray/Docu...')
+#3 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(124): Illuminate\Filesystem\Filesystem::Illuminate\Filesystem\{closure}()
+#4 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(58): Illuminate\Filesystem\Filesystem->getRequire('/Users/ray/Docu...', Array)
+#5 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(75): Illuminate\View\Engines\PhpEngine->evaluatePath('/Users/ray/Docu...', Array)
+#6 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/View.php(209): Illuminate\View\Engines\CompilerEngine->get('/Users/ray/Docu...', Array)
+#7 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/View.php(192): Illuminate\View\View->getContents()
+#8 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/View.php(161): Illuminate\View\View->renderContents()
+#9 Command line code(1): Illuminate\View\View->render()
+#10 {main}
+
+Next Illuminate\View\ViewException: Undefined variable $errors (View: /Users/ray/Documents/Project/dr-sepatu/resources/views/auth/login.blade.php) in /Users/ray/Documents/Project/dr-sepatu/storage/framework/views/36038d84a52e8ec5651538ee220d0c84.php:24
+Stack trace:
+#0 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(60): Illuminate\View\Engines\CompilerEngine->handleViewException(Object(ErrorException), 0)
+#1 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(75): Illuminate\View\Engines\PhpEngine->evaluatePath('/Users/ray/Docu...', Array)
+#2 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/View.php(209): Illuminate\View\Engines\CompilerEngine->get('/Users/ray/Docu...', Array)
+#3 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/View.php(192): Illuminate\View\View->getContents()
+#4 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/View.php(161): Illuminate\View\View->renderContents()
+#5 Command line code(1): Illuminate\View\View->render()
+#6 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught ErrorException: Undefined variable $errors in /Users/ray/Documents/Project/dr-sepatu/storage/framework/views/36038d84a52e8ec5651538ee220d0c84.php:24
+Stack trace:
+#0 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(258): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Undefined varia...', '/Users/ray/Docu...', 24)
+#1 /Users/ray/Documents/Project/dr-sepatu/storage/framework/views/36038d84a52e8ec5651538ee220d0c84.php(24): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->Illuminate\\Foundation\\Bootstrap\\{closure}(2, 'Undefined varia...', '/Users/ray/Docu...', 24)
+#2 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(123): require('/Users/ray/Docu...')
+#3 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(124): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
+#4 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('/Users/ray/Docu...', Array)
+#5 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(75): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('/Users/ray/Docu...', Array)
+#6 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/View.php(209): Illuminate\\View\\Engines\\CompilerEngine->get('/Users/ray/Docu...', Array)
+#7 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/View.php(192): Illuminate\\View\\View->getContents()
+#8 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/View.php(161): Illuminate\\View\\View->renderContents()
+#9 Command line code(1): Illuminate\\View\\View->render()
+#10 {main}
+
+Next Illuminate\\View\\ViewException: Undefined variable $errors (View: /Users/ray/Documents/Project/dr-sepatu/resources/views/auth/login.blade.php) in /Users/ray/Documents/Project/dr-sepatu/storage/framework/views/36038d84a52e8ec5651538ee220d0c84.php:24
+Stack trace:
+#0 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(60): Illuminate\\View\\Engines\\CompilerEngine->handleViewException(Object(ErrorException), 0)
+#1 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(75): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('/Users/ray/Docu...', Array)
+#2 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/View.php(209): Illuminate\\View\\Engines\\CompilerEngine->get('/Users/ray/Docu...', Array)
+#3 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/View.php(192): Illuminate\\View\\View->getContents()
+#4 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/View.php(161): Illuminate\\View\\View->renderContents()
+#5 Command line code(1): Illuminate\\View\\View->render()
+#6 {main}
+  thrown at /Users/ray/Documents/Project/dr-sepatu/storage/framework/views/36038d84a52e8ec5651538ee220d0c84.php:24)
+[stacktrace]
+#0 {main}
+"} 
+[2026-11-06 11:00:15] local.ERROR: Uncaught ErrorException: Undefined variable $errors in /Users/ray/Documents/Project/dr-sepatu/storage/framework/views/36038d84a52e8ec5651538ee220d0c84.php:48
+Stack trace:
+#0 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(258): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'Undefined varia...', '/Users/ray/Docu...', 48)
+#1 /Users/ray/Documents/Project/dr-sepatu/storage/framework/views/36038d84a52e8ec5651538ee220d0c84.php(48): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}(2, 'Undefined varia...', '/Users/ray/Docu...', 48)
+#2 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(123): require('/Users/ray/Docu...')
+#3 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(124): Illuminate\Filesystem\Filesystem::Illuminate\Filesystem\{closure}()
+#4 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(58): Illuminate\Filesystem\Filesystem->getRequire('/Users/ray/Docu...', Array)
+#5 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(75): Illuminate\View\Engines\PhpEngine->evaluatePath('/Users/ray/Docu...', Array)
+#6 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/View.php(209): Illuminate\View\Engines\CompilerEngine->get('/Users/ray/Docu...', Array)
+#7 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/View.php(192): Illuminate\View\View->getContents()
+#8 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/View.php(161): Illuminate\View\View->renderContents()
+#9 Command line code(1): Illuminate\View\View->render()
+#10 {main}
+
+Next Illuminate\View\ViewException: Undefined variable $errors (View: /Users/ray/Documents/Project/dr-sepatu/resources/views/auth/login.blade.php) in /Users/ray/Documents/Project/dr-sepatu/storage/framework/views/36038d84a52e8ec5651538ee220d0c84.php:48
+Stack trace:
+#0 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(60): Illuminate\View\Engines\CompilerEngine->handleViewException(Object(ErrorException), 0)
+#1 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(75): Illuminate\View\Engines\PhpEngine->evaluatePath('/Users/ray/Docu...', Array)
+#2 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/View.php(209): Illuminate\View\Engines\CompilerEngine->get('/Users/ray/Docu...', Array)
+#3 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/View.php(192): Illuminate\View\View->getContents()
+#4 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/View.php(161): Illuminate\View\View->renderContents()
+#5 Command line code(1): Illuminate\View\View->render()
+#6 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught ErrorException: Undefined variable $errors in /Users/ray/Documents/Project/dr-sepatu/storage/framework/views/36038d84a52e8ec5651538ee220d0c84.php:48
+Stack trace:
+#0 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(258): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Undefined varia...', '/Users/ray/Docu...', 48)
+#1 /Users/ray/Documents/Project/dr-sepatu/storage/framework/views/36038d84a52e8ec5651538ee220d0c84.php(48): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->Illuminate\\Foundation\\Bootstrap\\{closure}(2, 'Undefined varia...', '/Users/ray/Docu...', 48)
+#2 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(123): require('/Users/ray/Docu...')
+#3 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(124): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
+#4 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('/Users/ray/Docu...', Array)
+#5 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(75): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('/Users/ray/Docu...', Array)
+#6 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/View.php(209): Illuminate\\View\\Engines\\CompilerEngine->get('/Users/ray/Docu...', Array)
+#7 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/View.php(192): Illuminate\\View\\View->getContents()
+#8 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/View.php(161): Illuminate\\View\\View->renderContents()
+#9 Command line code(1): Illuminate\\View\\View->render()
+#10 {main}
+
+Next Illuminate\\View\\ViewException: Undefined variable $errors (View: /Users/ray/Documents/Project/dr-sepatu/resources/views/auth/login.blade.php) in /Users/ray/Documents/Project/dr-sepatu/storage/framework/views/36038d84a52e8ec5651538ee220d0c84.php:48
+Stack trace:
+#0 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(60): Illuminate\\View\\Engines\\CompilerEngine->handleViewException(Object(ErrorException), 0)
+#1 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(75): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('/Users/ray/Docu...', Array)
+#2 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/View.php(209): Illuminate\\View\\Engines\\CompilerEngine->get('/Users/ray/Docu...', Array)
+#3 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/View.php(192): Illuminate\\View\\View->getContents()
+#4 /Users/ray/Documents/Project/dr-sepatu/vendor/laravel/framework/src/Illuminate/View/View.php(161): Illuminate\\View\\View->renderContents()
+#5 Command line code(1): Illuminate\\View\\View->render()
+#6 {main}
+  thrown at /Users/ray/Documents/Project/dr-sepatu/storage/framework/views/36038d84a52e8ec5651538ee220d0c84.php:48)
+[stacktrace]
+#0 {main}
+"} 
