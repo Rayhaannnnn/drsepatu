@@ -39,6 +39,106 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 4500);
 });
 
+// Modern Confirmation Modal Helper using SweetAlert2
+window.confirmAction = function(options) {
+    const defaults = {
+        title: 'Apakah Anda Yakin?',
+        text: 'Tindakan ini tidak dapat dibatalkan.',
+        icon: 'warning',
+        confirmButtonText: 'Ya, Lanjutkan',
+        cancelButtonText: 'Batal',
+        confirmButtonColor: '#e11d48',
+        isDanger: true,
+        onConfirm: () => {}
+    };
+    
+    const config = Object.assign({}, defaults, options);
+    
+    if (typeof Swal !== 'undefined') {
+        return Swal.fire({
+            title: config.title,
+            text: config.text,
+            icon: config.icon,
+            showCancelButton: true,
+            confirmButtonColor: config.confirmButtonColor,
+            cancelButtonColor: '#64748b',
+            confirmButtonText: config.confirmButtonText,
+            cancelButtonText: config.cancelButtonText,
+            reverseButtons: true,
+            focusCancel: config.isDanger,
+            buttonsStyling: true,
+            customClass: {
+                popup: 'swal2-custom-popup',
+                title: 'swal2-custom-title',
+                htmlContainer: 'swal2-custom-text',
+                confirmButton: 'swal2-custom-confirm',
+                cancelButton: 'swal2-custom-cancel'
+            }
+        }).then((result) => {
+            if (result.isConfirmed && typeof config.onConfirm === 'function') {
+                config.onConfirm();
+            }
+            return result;
+        });
+    } else {
+        if (confirm(config.text)) {
+            if (typeof config.onConfirm === 'function') {
+                config.onConfirm();
+            }
+            return Promise.resolve({ isConfirmed: true });
+        }
+        return Promise.resolve({ isConfirmed: false });
+    }
+};
+
+// Global Toast helper using SweetAlert2
+window.showToast = function(message, icon = 'success') {
+    if (typeof Swal !== 'undefined') {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+            }
+        });
+        Toast.fire({
+            icon: icon,
+            title: message
+        });
+    }
+};
+
+// Global interceptor for all forms with data-confirm
+document.addEventListener('submit', function (e) {
+    const form = e.target;
+    if (!form || !form.getAttribute) return;
+    
+    const confirmMsg = form.getAttribute('data-confirm');
+    if (confirmMsg && !form.dataset.confirmed) {
+        e.preventDefault();
+        const confirmTitle = form.getAttribute('data-confirm-title') || 'Konfirmasi Tindakan';
+        const confirmBtn = form.getAttribute('data-confirm-btn') || 'Ya, Lanjutkan';
+        const isDanger = form.getAttribute('data-confirm-danger') !== 'false';
+        
+        window.confirmAction({
+            title: confirmTitle,
+            text: confirmMsg,
+            icon: isDanger ? 'warning' : 'question',
+            confirmButtonText: confirmBtn,
+            confirmButtonColor: isDanger ? '#e11d48' : '#1a56db',
+            isDanger: isDanger,
+            onConfirm: () => {
+                form.dataset.confirmed = 'true';
+                form.submit();
+            }
+        });
+    }
+});
+
 // Modern Chart helper for admin
 window.initChart = function(canvasId, labels, data) {
     const canvas = document.getElementById(canvasId);

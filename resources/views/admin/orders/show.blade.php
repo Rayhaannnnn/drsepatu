@@ -191,7 +191,9 @@
 
             <!-- Delete Order Form -->
             <form method="POST" action="{{ route('admin.orders.destroy', $order) }}"
-                  onsubmit="return confirm('Apakah Anda yakin ingin menghapus pesanan #{{ $order->order_number }}? Tindakan ini tidak dapat dibatalkan.')">
+                  data-confirm="Apakah Anda yakin ingin menghapus pesanan #{{ $order->order_number }}? Tindakan ini tidak dapat dibatalkan."
+                  data-confirm-title="Hapus Pesanan?"
+                  data-confirm-btn="Ya, Hapus Pesanan!">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn-danger w-full text-xs py-2 font-semibold">
