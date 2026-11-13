@@ -65,6 +65,18 @@
                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                     <span>Pesan Cuci Baru</span>
                 </a>
+
+                <a href="{{ route('customer.chat.index') }}" class="sidebar-link {{ request()->routeIs('customer.chat.*') ? 'active' : '' }}">
+                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                    <span>Live Chat & Konsultasi</span>
+                    @php 
+                        $custUnread = \App\Models\ChatMessage::where('user_id', auth()->id())
+                            ->where('sender_id', '!=', auth()->id())
+                            ->where('is_read', false)
+                            ->count(); 
+                    @endphp
+                    <span id="customerChatBadge" class="ml-auto bg-blue-500 text-white text-[11px] font-bold rounded-full px-2 py-0.5 {{ $custUnread > 0 ? '' : 'hidden' }}">{{ $custUnread }}</span>
+                </a>
             </nav>
         </div>
 
@@ -133,5 +145,25 @@
     </div>
 
     @stack('scripts')
+    <script>
+        // Global customer unread badge poller
+        (function() {
+            function checkCustomerUnread() {
+                fetch('{{ route("customer.chat.unread-count") }}')
+                    .then(r => r.json())
+                    .then(data => {
+                        const badge = document.getElementById('customerChatBadge');
+                        if (!badge) return;
+                        if (data.unread_count > 0) {
+                            badge.textContent = data.unread_count;
+                            badge.classList.remove('hidden');
+                        } else {
+                            badge.classList.add('hidden');
+                        }
+                    }).catch(() => {});
+            }
+            setInterval(checkCustomerUnread, 6000);
+        })();
+    </script>
 </body>
 </html>
