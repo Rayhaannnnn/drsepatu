@@ -236,8 +236,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const text = chatMessageInput.value.trim();
         if (!text && !selectedImageFile) return;
 
+        const tokenMeta = document.querySelector('meta[name="csrf-token"]');
+        const token = tokenMeta ? tokenMeta.getAttribute('content') : '{{ csrf_token() }}';
+
         const formData = new FormData();
-        formData.append('_token', '{{ csrf_token() }}');
+        formData.append('_token', token);
         if (text) formData.append('message', text);
         if (selectedImageFile) formData.append('image', selectedImageFile);
         if (chatOrderSelect && chatOrderSelect.value) {
@@ -251,24 +254,52 @@ document.addEventListener('DOMContentLoaded', function () {
             method: 'POST',
             body: formData,
             headers: {
-                'X-Requested-With': 'XMLHttpRequest'
+                'X-CSRF-TOKEN': token,
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json'
             }
         })
-        .then(res => res.json())
-        .then(data => {
+        .then(async res => {
             sendBtn.disabled = false;
-            if (data.status === 'success') {
+            const data = await res.json().catch(() => ({}));
+            if (res.ok && data.status === 'success') {
                 chatMessageInput.value = '';
                 removeImageBtn.click();
                 appendMessage(data.message);
                 scrollToBottom();
             } else {
-                alert(data.message || 'Gagal mengirim pesan.');
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal Mengirim',
+                        text: data.message || 'Pesan gagal terkirim. Silakan coba lagi.',
+                        confirmButtonColor: '#1a56db',
+                        customClass: {
+                            popup: 'swal2-custom-popup',
+                            confirmButton: 'swal2-custom-confirm'
+                        }
+                    });
+                } else {
+                    alert(data.message || 'Gagal mengirim pesan.');
+                }
             }
         })
         .catch(() => {
             sendBtn.disabled = false;
-            alert('Koneksi terputus. Silakan coba lagi.');
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Koneksi Terputus',
+                    text: 'Gagal menghubungi server. Silakan coba sesaat lagi.',
+                    confirmButtonColor: '#1a56db',
+                    customClass: {
+                        popup: 'swal2-custom-popup',
+                        confirmButton: 'swal2-custom-confirm'
+                    }
+                });
+            } else {
+                alert('Koneksi terputus. Silakan coba lagi.');
+            }
         });
     });
 
@@ -362,3 +393,4 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 @endpush
+

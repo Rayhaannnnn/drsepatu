@@ -62,3 +62,4 @@ class ChatMessage extends Model
         return $this->sender && $this->sender->isCustomer();
     }
 }
+

@@ -247,31 +247,55 @@ document.addEventListener('DOMContentLoaded', function() {
         const text = input.value.trim();
         if (!text) return;
 
+        const tokenMeta = document.querySelector('meta[name="csrf-token"]');
+        const token = tokenMeta ? tokenMeta.getAttribute('content') : '{{ csrf_token() }}';
+
         sendBtn.disabled = true;
 
         fetch(`{{ url('admin/chats') }}/${customerId}/messages`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                'X-Requested-With': 'XMLHttpRequest'
+                'X-CSRF-TOKEN': token,
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json'
             },
-            body: JSON.stringify({ message: text })
+            body: JSON.stringify({ message: text, _token: token })
         })
-        .then(r => r.json())
-        .then(data => {
+        .then(async r => {
             sendBtn.disabled = false;
-            if (data.status === 'success') {
+            const data = await r.json().catch(() => ({}));
+            if (r.ok && data.status === 'success') {
                 input.value = '';
                 appendAdminMessage(data.message);
                 scrollToBottom();
             } else {
-                alert(data.message || 'Gagal mengirim balasan.');
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal Mengirim',
+                        text: data.message || 'Gagal mengirim balasan.',
+                        confirmButtonColor: '#1a56db',
+                        customClass: { popup: 'swal2-custom-popup', confirmButton: 'swal2-custom-confirm' }
+                    });
+                } else {
+                    alert(data.message || 'Gagal mengirim balasan.');
+                }
             }
         })
         .catch(() => {
             sendBtn.disabled = false;
-            alert('Koneksi terputus.');
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Koneksi Terputus',
+                    text: 'Gagal menghubungi server.',
+                    confirmButtonColor: '#1a56db',
+                    customClass: { popup: 'swal2-custom-popup', confirmButton: 'swal2-custom-confirm' }
+                });
+            } else {
+                alert('Koneksi terputus.');
+            }
         });
     });
 
@@ -363,3 +387,4 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 @endif
 @endpush
+

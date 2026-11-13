@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="Dr. Sepatu - Layanan cuci sepatu profesional dengan Fast Clean, Deep Clean, dan Suede Treatment. Jemput antar tersedia!">
     <title>@yield('title', 'Dr. Sepatu - Laundry Sepatu Profesional')</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -384,22 +385,37 @@
 
                     widgetSendBtn.disabled = true;
 
+                    const tokenMeta = document.querySelector('meta[name="csrf-token"]');
+                    const token = tokenMeta ? tokenMeta.getAttribute('content') : '{{ csrf_token() }}';
+
                     const formData = new FormData();
-                    formData.append('_token', '{{ csrf_token() }}');
+                    formData.append('_token', token);
                     formData.append('message', text);
 
                     fetch('{{ route("customer.chat.send") }}', {
                         method: 'POST',
                         body: formData,
-                        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                        headers: {
+                            'X-CSRF-TOKEN': token,
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Accept': 'application/json'
+                        }
                     })
-                    .then(r => r.json())
-                    .then(data => {
+                    .then(async r => {
                         widgetSendBtn.disabled = false;
-                        if (data.status === 'success') {
+                        const data = await r.json().catch(() => ({}));
+                        if (r.ok && data.status === 'success') {
                             widgetInput.value = '';
                             appendWidgetMessage(data.message);
                             scrollToBottomWidget();
+                        } else if (typeof Swal !== 'undefined') {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal Mengirim',
+                                text: data.message || 'Pesan gagal terkirim.',
+                                confirmButtonColor: '#1a56db',
+                                customClass: { popup: 'swal2-custom-popup', confirmButton: 'swal2-custom-confirm' }
+                            });
                         }
                     })
                     .catch(() => {
